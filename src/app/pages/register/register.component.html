@@ -1,0 +1,164 @@
+<div class="min-h-screen w-full bg-slate-50">
+  <div class="flex min-h-screen w-full flex-col lg:flex-row">
+
+    <!-- LEFT SECTION (HIDDEN ON MOBILE) -->
+    <section
+      class="relative hidden w-full items-center justify-center overflow-hidden px-8 py-12 lg:flex lg:w-1/2 lg:py-0"
+    >
+      <!-- Gradient Background -->
+      <div class="absolute inset-0 bg-gradient-to-br from-[#0b2b5b] via-[#1f5ea8] to-[#19a7a5]"></div>
+
+      <!-- Decorative shapes -->
+      <div class="absolute -left-24 -top-24 h-64 w-64 rounded-full bg-white/10 blur-2xl"></div>
+      <div class="absolute -right-24 -bottom-24 h-64 w-64 rounded-full bg-black/10 blur-2xl"></div>
+
+      <!-- CONTENT -->
+      <div class="relative z-10 w-full max-w-lg text-white">
+
+ 
+        <!-- TEXT (LEFT ALIGNED AS YOU WANT) -->
+        <h1 class="text-4xl font-extrabold leading-tight sm:text-5xl">
+          Information
+          <span class="block">Technology</span>
+          <span class="block text-white/80">Institute</span>
+        </h1>
+
+        <p class="mt-6 max-w-md text-white/80 leading-relaxed">
+          A leading national institute providing hands-on technical training,
+          industry-focused tracks, and real-world projects to empower future
+          technology leaders.
+        </p>
+
+        <div class="mt-8 space-y-3">
+          <div class="flex items-center gap-3 text-white/90">
+            <span class="h-2 w-2 rounded-full bg-white/90"></span>
+            <span>Practical & project-based learning</span>
+          </div>
+          <div class="flex items-center gap-3 text-white/90">
+            <span class="h-2 w-2 rounded-full bg-white/90"></span>
+            <span>Specialized IT career tracks</span>
+          </div>
+          <div class="flex items-center gap-3 text-white/90">
+            <span class="h-2 w-2 rounded-full bg-white/90"></span>
+            <span>Career readiness & mentorship</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- RIGHT SECTION (UNCHANGED) -->
+    <section class="flex w-full items-center justify-center px-6 py-12 lg:w-1/2">
+      <div class="w-full max-w-md">
+
+        <!-- LOGO ABOVE TITLE -->
+        <div class="mb-6 flex flex-col items-center text-center">
+          <img
+            src="/logoITI.png"
+            alt="ITI Logo"
+            class="h-28 w-auto object-contain sm:h-32 md:h-36"
+          />
+          <h2 class="mt-4 text-2xl font-bold text-slate-900">
+            Create your account
+          </h2>
+          <p class="mt-2 text-slate-500">
+            Join ITI and start your journey
+          </p>
+        </div>
+
+        <!-- FORM (UNCHANGED SVGs) -->
+        <form class="mt-7 space-y-4">
+          <!-- Full Name -->
+          <div>
+            <label class="mb-2 block text-sm font-medium text-slate-700">Full Name</label>
+            <div class="relative">
+              <span class="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">
+                <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none">
+                  <path d="M20 21a8 8 0 1 0-16 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M12 13a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" stroke="currentColor" stroke-width="2"/>
+                </svg>
+              </span>
+              <input
+                type="text"
+                placeholder="Your name"
+                class="w-full rounded-xl border border-slate-200 bg-white py-3 pl-10 pr-4 text-slate-900
+                       focus:outline-none focus:ring-4 focus:ring-slate-100"
+              />
+            </div>
+          </div>
+
+          <!-- Email -->
+          <div>
+            <label class="mb-2 block text-sm font-medium text-slate-700">Email</label>
+            <div class="relative">
+              <span class="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">
+                <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none">
+                  <path d="M4 6h16v12H4V6Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                  <path d="m4 7 8 6 8-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+              <input
+                type="email"
+                placeholder="name@example.com"
+                class="w-full rounded-xl border border-slate-200 bg-white py-3 pl-10 pr-4 text-slate-900
+                       focus:outline-none focus:ring-4 focus:ring-slate-100"
+              />
+            </div>
+          </div>
+
+          <!-- Password -->
+          <div>
+            <label class="mb-2 block text-sm font-medium text-slate-700">Password</label>
+            <div class="relative">
+              <span class="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">
+                <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none">
+                  <path d="M7 11V8a5 5 0 0 1 10 0v3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M6 11h12v10H6V11Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                </svg>
+              </span>
+              <input
+                type="password"
+                placeholder="••••••••"
+                class="w-full rounded-xl border border-slate-200 bg-white py-3 pl-10 pr-4 text-slate-900
+                       focus:outline-none focus:ring-4 focus:ring-slate-100"
+              />
+            </div>
+          </div>
+
+          <!-- Confirm Password -->
+          <div>
+            <label class="mb-2 block text-sm font-medium text-slate-700">Confirm Password</label>
+            <div class="relative">
+              <span class="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">
+                <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none">
+                  <path d="M12 2 20 6v6c0 5-3.5 9.5-8 10-4.5-.5-8-5-8-10V6l8-4Z"
+                        stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                  <path d="M9.5 12.5 11 14l3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+              <input
+                type="password"
+                placeholder="••••••••"
+                class="w-full rounded-xl border border-slate-200 bg-white py-3 pl-10 pr-4 text-slate-900
+                       focus:outline-none focus:ring-4 focus:ring-slate-100"
+              />
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            class="mt-2 w-full rounded-xl bg-[#0b2b5b] py-3 font-semibold text-white transition hover:brightness-110"
+          >
+            Create account
+          </button>
+
+          <p class="pt-1 text-center text-sm text-slate-500">
+            Already have an account?
+            <a href="#" class="font-semibold text-[#0b2b5b] hover:underline">Sign in</a>
+          </p>
+        </form>
+      </div>
+    </section>
+
+  </div>
+</div>
