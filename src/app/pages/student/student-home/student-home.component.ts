@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StudentDashboardService } from '../../../core/services/Student_dashboard/student_dashboard.service';
 import { StudentDashboardData } from '../../../shared/interfaces/Dashboards/Student';
+import { json } from 'stream/consumers';
 
 @Component({
   selector: 'app-student-home',
@@ -15,17 +16,19 @@ export class StudentHome implements OnInit {
   loading = true;
   error: string | null = null;
   showTooltip: number | null = null;
-  usingMockData = false; // Flag to track if we're using mock data
+  usingMockData = false;
+  userName :string= '';
 
-  // Default empty data to prevent null errors
+  
+
   private defaultDashboardData: StudentDashboardData = {
     examsTaken: 0,
     averageScore: 0,
     bestScore: 0,
     upcomingExams: 0,
-    performance: [],
-    scoreTrend: [],
-    recentResults: [],
+    performance: [], 
+    scoreTrend: [], 
+    recentResults: [], 
     gradeDistribution: { a: 0, b: 0, c: 0, d: 0 },
   };
 
@@ -33,20 +36,31 @@ export class StudentHome implements OnInit {
 
   ngOnInit(): void {
     this.loadDashboard();
+   
+
+    const userStr = localStorage.getItem('current_user');
+    if (userStr) {
+      try {
+        const user = JSON.parse(userStr);
+        this.userName = user.fullName?.toUpperCase() || ''; 
+        console.log(this.userName);
+      } catch (e) {
+        console.error('Error parsing user data', e);
+      }
+    }
+
   }
 
   loadDashboard(): void {
     this.loading = true;
     this.error = null;
     this.usingMockData = false;
+    
 
     this.dashboardService.getStudentDashboard().subscribe({
       next: (data) => {
         this.dashboardData = data;
         this.loading = false;
-
-        // Check if we're using mock data by comparing with mock data
-        // You can implement a more sophisticated check if needed
         console.log('Dashboard data loaded:', data);
       },
       error: (err) => {
@@ -56,24 +70,45 @@ export class StudentHome implements OnInit {
         this.loading = false;
       },
     });
-
-    // Load upcoming exams
-    this.dashboardService.getUpcomingExams().subscribe({
-      next: (data) => (this.upcomingExams = data),
-      error: (err) => {
-        console.error('Error loading upcoming exams:', err);
-        this.upcomingExams = [];
-      },
-    });
   }
 
-  // Safe getter for template - returns non-nullable data
+  // Safe getter for template
   get safeDashboardData(): StudentDashboardData {
     return this.dashboardData || this.defaultDashboardData;
   }
 
+  // Transform performance data for the chart
+  get performanceData() {
+    return this.safeDashboardData.performance.map((p) => ({
+      subject: p.courseName,
+      score: p.averageScore,
+    }));
+  }
+
+  // Transform trend data for the chart
+  get trendData() {
+    return this.safeDashboardData.scoreTrend.map((t) => ({
+      month: t.monthName,
+      score: t.averageScore,
+    }));
+  }
+
+  // Transform recent results for display
+  get recentResults() {
+    return this.safeDashboardData.recentResults.map((r) => ({
+      subject: r.courseName,
+      score: r.score,
+      date: new Date(r.submittedAt).toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+      }),
+      total: 100, // Assuming total is 100, adjust if needed
+    }));
+  }
+
   getScoreTrendPoints(): { x: number; y: number }[] {
-    const data = this.safeDashboardData.scoreTrend;
+    const data = this.trendData;
     if (!data.length) return [];
 
     const width = 600;
