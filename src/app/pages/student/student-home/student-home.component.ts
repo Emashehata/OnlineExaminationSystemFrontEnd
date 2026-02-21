@@ -17,18 +17,16 @@ export class StudentHome implements OnInit {
   error: string | null = null;
   showTooltip: number | null = null;
   usingMockData = false;
-  userName :string= '';
-
-  
+  userName: string = '';
 
   private defaultDashboardData: StudentDashboardData = {
     examsTaken: 0,
     averageScore: 0,
     bestScore: 0,
     upcomingExams: 0,
-    performance: [], 
-    scoreTrend: [], 
-    recentResults: [], 
+    performance: [],
+    scoreTrend: [],
+    recentResults: [],
     gradeDistribution: { a: 0, b: 0, c: 0, d: 0 },
   };
 
@@ -36,26 +34,23 @@ export class StudentHome implements OnInit {
 
   ngOnInit(): void {
     this.loadDashboard();
-   
 
     const userStr = localStorage.getItem('current_user');
     if (userStr) {
       try {
         const user = JSON.parse(userStr);
-        this.userName = user.fullName?.toUpperCase() || ''; 
+        this.userName = user.fullName?.toUpperCase() || '';
         console.log(this.userName);
       } catch (e) {
         console.error('Error parsing user data', e);
       }
     }
-
   }
 
   loadDashboard(): void {
     this.loading = true;
     this.error = null;
     this.usingMockData = false;
-    
 
     this.dashboardService.getStudentDashboard().subscribe({
       next: (data) => {
@@ -76,8 +71,26 @@ export class StudentHome implements OnInit {
   get safeDashboardData(): StudentDashboardData {
     return this.dashboardData || this.defaultDashboardData;
   }
+ getBestScoreSubject(): string {
+    if (this.safeDashboardData.recentResults && this.safeDashboardData.recentResults.length > 0) {
+        const bestResult = this.safeDashboardData.recentResults.reduce((best, current) => {
+            return current.score > best.score ? current : best;
+        }, this.safeDashboardData.recentResults[0]);
+        
+        return bestResult.courseName || 'N/A';
+    }
+    
+    if (this.safeDashboardData.performance && this.safeDashboardData.performance.length > 0) {
+        const bestPerformance = this.safeDashboardData.performance.reduce((best, current) => {
+            return current.averageScore > best.averageScore ? current : best;
+        }, this.safeDashboardData.performance[0]);
+        
+        return bestPerformance.courseName || 'N/A';
+    }
+    
+    return 'N/A';
+}
 
-  // Transform performance data for the chart
   get performanceData() {
     return this.safeDashboardData.performance.map((p) => ({
       subject: p.courseName,

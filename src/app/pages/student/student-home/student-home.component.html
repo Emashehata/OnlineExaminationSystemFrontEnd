@@ -1,8 +1,8 @@
 <div class="min-h-screen bg-gray-50 p-4 sm:p-6 lg:p-8">
     <!-- Header -->
     <div class="mb-8">
-        <h1 class="text-2xl sm:text-3xl font-bold text-gray-900">
-            Welcome back, {{userName}} <span class="text-3xl">🎉</span>
+        <h1 class="text-xl sm:text-3xl font-bold text-gray-900">
+            Welcome back, {{userName}} 
         </h1>
         <p class="text-gray-500 mt-1">Here's your academic overview</p>
     </div>
@@ -58,10 +58,10 @@
             <div
                 class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
                 <h3 class="text-sm font-medium text-gray-400 uppercase tracking-wider">Best Score</h3>
-                <p class="text-3xl font-bold text-gray-800 mt-2">{{ safeDashboardData.bestScore }}%</p>
+                <p class="text-3xl font-bold text-gray-800 mt-2">{{ safeDashboardData.bestScore }}</p>
                 <p class="text-xs text-gray-400 mt-3 flex items-center">
                     <span class="w-1.5 h-1.5 bg-purple-400 rounded-full mr-1.5"></span>
-                    {{ performanceData[0]?.subject || 'N/A' }}
+                {{ getBestScoreSubject() }}
                 </p>
             </div>
 
@@ -80,44 +80,45 @@
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <!-- Left Column - Charts -->
             <div class="lg:col-span-2 space-y-6">
-                <!-- Performance by Subject -->
-                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-                    <h2 class="text-lg font-semibold text-gray-800 mb-6">Performance by Subject</h2>
-
-                    <div class="relative h-72">
-                        <div class="absolute -left-2 top-0 h-full flex flex-col justify-between text-xs text-gray-500">
-                            <span>100</span>
-                            <span>75</span>
-                            <span>50</span>
-                            <span>25</span>
-                            <span>0</span>
-                        </div>
-
-                        <div class="ml-8 h-full flex items-end justify-around border-b border-l border-gray-300">
-                            <div *ngFor="let subject of performanceData; let i = index"
-                                class="flex flex-col items-center group relative" style="width: 14%;">
-                                <div class="w-full bg-gradient-to-t from-blue-500 to-blue-400 rounded-t-md transition-all duration-700 ease-out group-hover:opacity-80 origin-bottom"
-                                    [style.height.%]="subject.score">
-                                </div>
-
-                                <div
-                                    class="absolute bottom-full mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 
-                                            bg-gray-800 text-white text-xs rounded-lg px-2 py-1 pointer-events-none z-20">
-                                    {{ subject.subject }}: {{ subject.score }}%
-                                </div>
-
-                                <span class="text-xs text-gray-500 mt-3 truncate w-full text-center">
-                                    {{ subject.subject }}
-                                </span>
-                            </div>
-
-                            <!-- Empty State -->
-                            <div *ngIf="performanceData.length === 0" class="text-center text-gray-500 py-8">
-                                No performance data available
+            <!-- Performance by Subject -->
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+                <h2 class="text-lg font-semibold text-gray-800 mb-6">Performance by Subject</h2>
+            
+                <div class="relative h-72">
+                    <div class="absolute -left-2 top-0 h-full flex flex-col justify-between text-xs text-gray-500">
+                        <span>100</span>
+                        <span>75</span>
+                        <span>50</span>
+                        <span>25</span>
+                        <span>0</span>
+                    </div>
+            
+                <div class="ml-8 h-full flex items-end justify-start gap-5 border-b border-l border-gray-300">
+                    <div *ngFor="let subject of performanceData; let i = index" class="flex  mx-5 flex-col items-center group relative"
+                        style="width: 50px;">
+                        <div class="w-full bg-gray-100 rounded-t-md relative" style="height: 200px;">
+                            <div class="absolute bottom-0 w-full bg-gradient-to-t from-blue-500 to-blue-400 rounded-t-md transition-all duration-700 ease-out group-hover:opacity-80"
+                                [style.height.%]="(subject.score / 100) * 100">
                             </div>
                         </div>
+                
+                        <div class="absolute bottom-full mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 
+                                    bg-gray-800 text-white text-xs rounded-lg px-2 py-1 pointer-events-none z-20 whitespace-nowrap">
+                            {{ subject.subject }}: {{ subject.score }}%
+                        </div>
+                
+                        <span class="text-xs text-gray-500 mt-3 truncate w-full text-center" style="max-width: 40px;">
+                            {{ subject.subject }}
+                        </span>
+                    </div>
+                
+                    <!-- Empty State -->
+                    <div *ngIf="performanceData.length === 0" class="text-center text-gray-500 py-8">
+                        No performance data available
                     </div>
                 </div>
+                </div>
+            </div>
 
                 <!-- Score Trend -->
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
